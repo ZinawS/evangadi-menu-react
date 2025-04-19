@@ -1,10 +1,14 @@
-import React from "react";
+import React, { Component } from "react";
 import "./foodItem.css";
 
-function FoodItem({ img, title, price, desc, category }) {
-  let timeoutId = null; // Keep this outside the function so it's shared between calls
-   //! add by myself
-  const toggleDescription = (e) => {
+class FoodItem extends Component {
+  // constructor(props) {
+  //   super(props);
+  //   this.timeoutId = null; // Keep this outside the function so it's shared between calls
+  // }
+
+  //! add by myself
+  toggleDescription = (e) => {
     const button = e.target;
     const card = button.closest(".single-food");
     const description = card.querySelector(".food-desc");
@@ -12,32 +16,32 @@ function FoodItem({ img, title, price, desc, category }) {
     const isExpanded = description.classList.contains("expanded");
 
     if (isExpanded) {
-      // 👇 Manual collapse
+      // Manual collapse
       description.classList.remove("expanded");
       button.textContent = "Show More";
 
-      // 🔁 Clear the previous timeout if any
-      if (timeoutId) {
-        clearTimeout(timeoutId);
-        timeoutId = null;
+      // Clear the previous timeout if any
+      if (this.timeoutId) {
+        clearTimeout(this.timeoutId);
+        this.timeoutId = null;
       }
     } else {
-      // 👇 Expand and auto-collapse after 3 sec
+      // Expand and auto-collapse after 3 sec
       description.classList.add("expanded");
       button.textContent = "Show Less";
 
-      // 🔁 Set timeout and store its ID
-      timeoutId = setTimeout(() => {
+      // Set timeout and store its ID
+      this.timeoutId = setTimeout(() => {
         description.classList.remove("expanded");
         button.textContent = "Show More";
-        timeoutId = null; // Reset after use
+        this.timeoutId = null; // Reset after use
       }, 3000);
     }
   };
-   //! add by myself
-  const checkTruncation = (el) => {
-    if (!el) return;
 
+  //! add by myself
+  checkTruncation = (e) => {
+    const el = e.currentTarget;
     const card = el.closest(".single-food");
     const toggleBtn = card.querySelector(".show-more");
 
@@ -49,32 +53,36 @@ function FoodItem({ img, title, price, desc, category }) {
     const isTruncated = el.scrollHeight > el.clientHeight;
     toggleBtn.textContent = isTruncated ? "Show More" : "";
   };
+
   //  The below is assignement part
-  return (
-    <div className={`food-item ${category.toLowerCase()}`}>
-      <div className="single-food">
-        <div className="img">
-          <img src={img} alt={title} />
-        </div>
+  render() {
+    const { img, title, price, desc, category } = this.props;
 
-        <div className="title-price">
-          <h3>{title}</h3>
-          <p>${price}</p>
-        </div>
+    return (
+      <div className={`food-item ${category.toLowerCase()}`}>
+        <div className="single-food">
+          <div className="img">
+            <img src={img} alt={title} />
+          </div>
 
-        {/* Discussion Point with instructors (ref vs ID or className)
-           ref gives direct access to a real DOM element inside a React component,  
-            even before it’s mounted in the real DOM.
-	          •	id or class work after rendering, and only through global selectors like document.querySelector, which is less React-friendly. */}
+          <div className="title-price">
+            <h3>{title}</h3>
+            <p>${price}</p>
+          </div>
 
-        <div className="food-desc" ref={checkTruncation}>
-          {desc}
+          <div
+            className="food-desc"
+            onMouseEnter={this.checkTruncation}
+          >
+            {desc}
+          </div>
+
+          {/* Show More/Less Button */}
+          <span className="show-more" onClick={this.toggleDescription}></span>
         </div>
-        {/* Show More/Less Button */}
-        <span className="show-more" onClick={toggleDescription}></span>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 export default FoodItem;
