@@ -16,7 +16,8 @@ const menu = [
     category: "dinner",
     price: 5.99,
     img: "https://www.willflyforfood.net/wp-content/uploads/2021/09/ethiopian-food-timatim-salata.jpg.webp",
-    desc: `Timatim Salata is a fresh Ethiopian tomato salad, also popular in Eritrea. It features diced tomatoes, minced onions, and finely chopped peppers, dressed with berbere spices, olive oil, vinegar, and lemon juice.`,
+    desc: `Timatim Salata is a fresh Ethiopian tomato salad, also popular in Eritrea. It features diced tomatoes, minced onions, and finely chopped peppers, dressed with berbere spices, olive oil, vinegar, and lemon juice. It’s often served as a side dish with injera or as a topping for various dishes. The salad is known for its vibrant colors and refreshing taste, making it a staple in Ethiopian cuisine.`,
+    
   },
   {
     id: 2,

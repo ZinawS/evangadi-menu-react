@@ -51,7 +51,7 @@ class FoodItem extends Component {
       clientHeight = visible height of the element
     */
     const isTruncated = el.scrollHeight > el.clientHeight;
-    toggleBtn.textContent = isTruncated ? "Show More" : "";
+    toggleBtn.textContent = isTruncated ? "Show More" : "Show Less";
   };
 
   //  The below is assignement part
@@ -62,18 +62,15 @@ class FoodItem extends Component {
       <div className={`food-item ${category.toLowerCase()}`}>
         <div className="single-food">
           <div className="img">
-            <img src={img} alt={title} />
+            {img ? <img src={img} alt={title} /> : { title }}
           </div>
 
           <div className="title-price">
-            <h3>{title}</h3>
-            <p>${price}</p>
+            {title && <h3>{title}</h3>}
+            {price && <p>${price}</p>}
           </div>
 
-          <div
-            className="food-desc"
-            onMouseEnter={this.checkTruncation}
-          >
+          <div className="food-desc" onMouseEnter={this.checkTruncation}>
             {desc}
           </div>
 

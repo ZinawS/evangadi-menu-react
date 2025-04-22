@@ -22,8 +22,9 @@ class App extends Component {
 
         {/* Food Items-This is only for assignement purpose */}
         <div id="food-container" className="foods-container">
-          {menu.map(({ img, title, price, desc, category }) => (
+          {menu.map(({ img, title, price, desc, category }, index) => (
             <FoodItem
+              key={index}
               img={img}
               title={title}
               price={price}
